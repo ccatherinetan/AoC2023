@@ -34,13 +34,27 @@ public class Main {
     }
 
     static int findFirstInt(String s) {
+        int firstInt = -1;
+        int searchUpToIndex = -1;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (c >= '0' && c <= '9') {
-                return Integer.parseInt(String.valueOf(c));
+                firstInt = Integer.parseInt(String.valueOf(c));
+                searchUpToIndex = i - 1;
+                break;
+                // return Integer.parseInt(String.valueOf(c));
             }
         }
-        return -1;
+
+        if (searchUpToIndex >= 2) { //i.e. it's at least 3 chars long
+            String search = s.substring(0, searchUpToIndex);
+            for (String numString : digitMap.keySet()) {
+                if (search.contains(numString)) {
+                    return digitMap.get(numString);
+                }
+            }
+        }
+        return firstInt;
     }
 
     static int findSecondInt(String s) {
