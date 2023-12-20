@@ -6,8 +6,9 @@ public class Main {
     public static void main(String[] args) {
         String file = "src/data/day2part1.txt";
         Day2 d = new Day2(file);
-        System.out.println(d.returnSum());
-        d.printGameVals(100);
+        // System.out.println(d.returnSum());
+        System.out.println(d.returnPowerSum());
+        // d.printGameVals(100);
         System.out.println("Hello world!");
     }
 }
