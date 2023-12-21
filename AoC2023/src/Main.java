@@ -3,6 +3,7 @@ public class Main {
     public static void main(String[] args) {
         String file = "src/data/day4.txt";
         Day4 d = new Day4(file);
+        System.out.println(d.countTotalCards());
         System.out.println("Hello world!");
     }
 
