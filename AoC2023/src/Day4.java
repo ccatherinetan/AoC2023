@@ -10,7 +10,7 @@ public class Day4 {
         int totalScore = 0;
         while (in.hasNextLine()) {
             String line = in.readLine();
-            String[] inputNums = line.split(": ")[1].split(" | ");
+            String[] inputNums = line.split("\\:[ ]+")[1].split("[ ]+\\|[ ]+");
             int[] winningNums = stringToIntArray(inputNums[0].split("[ ]+"));
             int[] myNums = stringToIntArray(inputNums[1].split("[ ]+"));
             int currScore = getScore(winningNums, myNums);

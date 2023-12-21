@@ -1,15 +1,9 @@
 
 public class Main {
     public static void main(String[] args) {
-        String file = "src/data/day1.txt";
-        Day1 d = new Day1(file);
+        String file = "src/data/day4.txt";
+        Day4 d = new Day4(file);
         System.out.println("Hello world!");
-
-        String[] ints = "1  2 3".split("[ ]+");
-        for (String s : ints) {
-            System.out.println(s);
-            System.out.println(Integer.parseInt(s));
-        }
     }
 
     /*
