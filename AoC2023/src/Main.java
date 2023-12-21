@@ -1,8 +1,9 @@
 
 public class Main {
     public static void main(String[] args) {
-        String file = "src/data/day1.txt";
-        Day1 d = new Day1(file);
+        String file = "src/data/day4.txt";
+        Day4 d = new Day4(file);
+        System.out.println(d.countTotalCards());
         System.out.println("Hello world!");
     }
 
@@ -23,6 +24,10 @@ public class Main {
      System.out.println(d.returnSum());
      System.out.println(d.returnGearSum());
 
+    DAY 4:
+      String file = "src/data/day4.txt";
+      Day4 d = new Day4(file);
+      System.out.println(d.countTotalCards());
 
      */
 }
