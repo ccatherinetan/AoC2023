@@ -1,15 +1,19 @@
 import edu.princeton.cs.algs4.In;
 
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.HashMap;
 
 public class Day1 {
-    public static HashMap<String, Integer> digitMap = new HashMap<>();
-    public static void main(String[] args) {
+    public HashMap<String, Integer> digitMap = new HashMap<>();
+
+    public Day1(String file) {
+        fillDigitMap();
         readFile("src/data/data.txt");
-        System.out.println("Hello world!");
     }
 
-    static void updateDigitMap() {
+    void fillDigitMap() {
         // digitMap.clear();
         digitMap.put("one", 1);
         digitMap.put("two", 2);
@@ -22,8 +26,7 @@ public class Day1 {
         digitMap.put("nine", 9);
     }
 
-    public static void readFile(String file) {
-        updateDigitMap();
+    public void readFile(String file) {
         In in = new In(file);
         int sum = 0;
         while (in.hasNextLine()) {
@@ -33,7 +36,7 @@ public class Day1 {
         System.out.println("Sum: " + sum);
     }
 
-    static int findFirstInt(String s) {
+    int findFirstInt(String s) {
         int firstInt = -1;
         int searchUpToIndex = -1;
         for (int i = 0; i < s.length(); i++) {
@@ -57,7 +60,7 @@ public class Day1 {
         return firstInt;
     }
 
-    static int findSecondInt(String s) {
+    int findSecondInt(String s) {
         for (int i = s.length() - 1; i >= 0; i--) {
             char c = s.charAt(i);
             if (c >= '0' && c <= '9') {
@@ -67,11 +70,71 @@ public class Day1 {
         return -1;
     }
 
-    static int findCalibrationValue(String s) {
+    private int getIndexOfFirstDigit(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                return i;
+            }
+        }
+        return -1; // if a digit is not found in s
+    }
+    private int[] findFirstWordNum(String s, boolean reversed) {
+        int minIndex = s.length(); // an impossible index
+        int num = -1;
+        for (String w : digitMap.keySet()) {
+            if (reversed) {
+                w = new StringBuilder(w).reverse().toString();
+            }
+            int index = s.indexOf(w);
+            if (index != -1 && index < minIndex) {
+                minIndex = index;
+                if (reversed) {
+                    w = new StringBuilder(w).reverse().toString();
+                }
+                num = digitMap.get(w);
+            }
+        }
+        if (num == -1) {
+            return null; //if there are no wordStrings in s
+        }
+        return new int[]{minIndex, num};
+    }
+
+    int findFirstIntAdvanced(String s) {
+        // find first int
+        int firstIntIndex = getIndexOfFirstDigit(s);
+        // find first word digit
+        int[] wordNum = findFirstWordNum(s, false);
+        // int lastWordNumIndex = wordNum[0];
+        if (wordNum == null || firstIntIndex < wordNum[0]) {
+            return s.charAt(firstIntIndex) - '0'; // the numeric val
+        } else {
+            return wordNum[1];
+        }
+    }
+
+    int findSecondIntAdvanced(String s) {
+        String reverseStr = new StringBuilder(s).reverse().toString();
+        // find first int (of reversed)
+        int lastIntIndex = getIndexOfFirstDigit(reverseStr);
+        // find first word digit (of reversed)
+        int[] wordNum = findFirstWordNum(reverseStr, true);
+        // int lastWordNumIndex = wordNum[0];
+        if (wordNum == null || lastIntIndex < wordNum[0]) {
+            return reverseStr.charAt(lastIntIndex) - '0'; // the numeric val
+        } else {
+            return wordNum[1];
+        }
+    }
+
+    int findCalibrationValue(String s) {
         //find firstInt
-        int firstInt = findFirstInt(s);
-        int secondInt = findSecondInt(s);
+        int firstInt = findFirstIntAdvanced(s);
+        int secondInt = findSecondIntAdvanced(s);
 
         return firstInt * 10 + secondInt;
     }
+
+
 }
