@@ -4,8 +4,9 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
-        String file = "src/data/day2part1.txt";
+        String file = "src/data/day3part1.txt";
         Day3 d = new Day3(file);
+//        d.test();
         System.out.println(d.returnSum());
         System.out.println("Hello world!");
     }

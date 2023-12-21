@@ -1,11 +1,13 @@
 import edu.princeton.cs.algs4.In;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class Day3 {
     public final int LINE_LENGTH = 140;
 //    public HashSet<int[]> symbolCoords;
-    public HashSet<NumberNode> numberNodes;
+    public List<NumberNode> numberNodes;
     boolean[][] validSpots;
     private class NumberNode {
         int startX;
@@ -21,8 +23,8 @@ public class Day3 {
     }
 
     public Day3(String file) {
-//        symbolCoords = new HashSet<>();
-        numberNodes = new HashSet<>();
+        // numberNodes = new HashSet<>();
+        numberNodes = new ArrayList<>();
         validSpots = new boolean[LINE_LENGTH][LINE_LENGTH];
         readFile(file);
     }
@@ -41,7 +43,7 @@ public class Day3 {
     }
 
     private boolean validCoord(int x, int y) {
-        return 0 <= x && x <= LINE_LENGTH && 0 <= y && y <= LINE_LENGTH;
+        return 0 <= x && x < LINE_LENGTH && 0 <= y && y < LINE_LENGTH;
     }
 
     private void markAroundSymbol(int symbolX, int symbolY) {
@@ -57,24 +59,44 @@ public class Day3 {
     private NumberNode createNumNode(String line, int startX, int y) {
         StringBuilder numString = new StringBuilder();
         int x = startX;
-        while (Character.isDigit(line.charAt(x))) {
+        while (x < line.length() && Character.isDigit(line.charAt(x))) {
             numString.append(line.charAt(x));
             x++;
         }
-        int numLength = numString.length();
+        int endX = startX + numString.length() - 1;
         int number = Integer.parseInt(numString.toString());
-        return new NumberNode(startX, startX + numLength, y, number);
+        return new NumberNode(startX, endX, y, number);
+    }
+
+    public void test() {
+        String line = ".........398.............551.....................452..................712.996.................646.40...1.....875..958.553...................\n";
+        readLine(line, 0);
+        for (NumberNode nn : numberNodes) {
+            System.out.println("number: " + nn.number);
+            System.out.println("startX: " + nn.startX);
+            System.out.println("endX: " + nn.endX);
+        }
+
+//        NumberNode nn = createNumNode(line, 1, 0);
+//        System.out.println("number: " + nn.number);
+//        System.out.println("startX: " + nn.startX);
+//        System.out.println("endX: " + nn.endX);
     }
 
     private void readLine(String line, int lineNum) {
-        for (int x = 0; x < LINE_LENGTH; x++) {
-            if (isSymbol(line.charAt(x))) {
-                markAroundSymbol(x, lineNum);
-//                int[] coords = new int[]{x, lineNum};
-//                symbolCoords.add(coords);
-            } else if (Character.isDigit(line.charAt(x))) {
+        int x = 0;
+        while (x < line.length()) {
+            if (Character.isDigit(line.charAt(x))) {
                 NumberNode nn = createNumNode(line, x, lineNum);
                 numberNodes.add(nn);
+                x = nn.endX + 1;
+            } else if (isSymbol(line.charAt(x))) {
+                markAroundSymbol(x, lineNum);
+                x++;
+//                int[] coords = new int[]{x, lineNum};
+//                symbolCoords.add(coords);
+            } else {
+                x++;
             }
         }
     }
