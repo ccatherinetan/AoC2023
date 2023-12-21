@@ -1,8 +1,4 @@
 import edu.princeton.cs.algs4.In;
-
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.HashMap;
 
 public class Day1 {
@@ -10,7 +6,7 @@ public class Day1 {
 
     public Day1(String file) {
         fillDigitMap();
-        readFile("src/data/data.txt");
+        readFile(file);
     }
 
     void fillDigitMap() {
@@ -101,12 +97,14 @@ public class Day1 {
         return new int[]{minIndex, num};
     }
 
-    int findFirstIntAdvanced(String s) {
+    int findFirstInt(String s, boolean reversed) {
+        if (reversed) {
+            s = new StringBuilder(s).reverse().toString();
+        }
         // find first int
         int firstIntIndex = getIndexOfFirstDigit(s);
         // find first word digit
-        int[] wordNum = findFirstWordNum(s, false);
-        // int lastWordNumIndex = wordNum[0];
+        int[] wordNum = findFirstWordNum(s, reversed);
         if (wordNum == null || firstIntIndex < wordNum[0]) {
             return s.charAt(firstIntIndex) - '0'; // the numeric val
         } else {
@@ -114,27 +112,17 @@ public class Day1 {
         }
     }
 
+    int findFirstIntAdvanced(String s) {
+        return findFirstInt(s, false);
+    }
+
     int findSecondIntAdvanced(String s) {
-        String reverseStr = new StringBuilder(s).reverse().toString();
-        // find first int (of reversed)
-        int lastIntIndex = getIndexOfFirstDigit(reverseStr);
-        // find first word digit (of reversed)
-        int[] wordNum = findFirstWordNum(reverseStr, true);
-        // int lastWordNumIndex = wordNum[0];
-        if (wordNum == null || lastIntIndex < wordNum[0]) {
-            return reverseStr.charAt(lastIntIndex) - '0'; // the numeric val
-        } else {
-            return wordNum[1];
-        }
+        return findFirstInt(s, true);
     }
 
     int findCalibrationValue(String s) {
-        //find firstInt
         int firstInt = findFirstIntAdvanced(s);
         int secondInt = findSecondIntAdvanced(s);
-
         return firstInt * 10 + secondInt;
     }
-
-
 }
