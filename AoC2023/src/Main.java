@@ -1,12 +1,8 @@
-import edu.princeton.cs.algs4.In;
-
-import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
         String file = "src/data/day3part1.txt";
         Day3 d = new Day3(file);
-//        d.test();
         System.out.println(d.returnGearSum());
         System.out.println("Hello world!");
     }

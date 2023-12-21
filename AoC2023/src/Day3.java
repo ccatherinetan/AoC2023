@@ -1,16 +1,12 @@
 import edu.princeton.cs.algs4.In;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
-//import java.util.HashSet;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 public class Day3 {
     public final int LINE_LENGTH = 140;
     public List<int[]> starCoords;
-    // public List<NumberNode> numberNodes;
     public HashMap<Integer, NumberNode> numberNodes;
     boolean[][] validSpots;
     int[][] numberSpots;
@@ -30,7 +26,6 @@ public class Day3 {
     }
 
     public Day3(String file) {
-        // numberNodes = new HashSet<>();
         numberNodes = new HashMap<>();
         starCoords = new ArrayList<>();
         validSpots = new boolean[LINE_LENGTH][LINE_LENGTH];
@@ -81,21 +76,6 @@ public class Day3 {
         int endX = startX + numString.length() - 1;
         int number = Integer.parseInt(numString.toString());
         return new NumberNode(startX, endX, y, number);
-    }
-
-    public void test() {
-        String line = ".........398.............551.....................452..................712.996.................646.40...1.....875..958.553...................\n";
-        readLine(line, 0);
-        for (NumberNode nn : numberNodes.values()) {
-            System.out.println("number: " + nn.number);
-            System.out.println("startX: " + nn.startX);
-            System.out.println("endX: " + nn.endX);
-        }
-
-//        NumberNode nn = createNumNode(line, 1, 0);
-//        System.out.println("number: " + nn.number);
-//        System.out.println("startX: " + nn.startX);
-//        System.out.println("endX: " + nn.endX);
     }
 
     private void readLine(String line, int lineNum) {
