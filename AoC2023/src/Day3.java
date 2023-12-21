@@ -1,31 +1,40 @@
 import edu.princeton.cs.algs4.In;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+//import java.util.HashSet;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Day3 {
     public final int LINE_LENGTH = 140;
-//    public HashSet<int[]> symbolCoords;
-    public List<NumberNode> numberNodes;
+    public List<int[]> starCoords;
+    // public List<NumberNode> numberNodes;
+    public HashMap<Integer, NumberNode> numberNodes;
     boolean[][] validSpots;
+    int[][] numberSpots;
     private class NumberNode {
         int startX;
         int endX;
         int y;
         int number;
+        int id;
         NumberNode(int startX, int endX, int y, int number) {
             this.startX = startX;
             this.endX = endX;
             this.y = y;
             this.number = number;
+            this.id = numberNodes.size() + 1;
         }
     }
 
     public Day3(String file) {
         // numberNodes = new HashSet<>();
-        numberNodes = new ArrayList<>();
+        numberNodes = new HashMap<>();
+        starCoords = new ArrayList<>();
         validSpots = new boolean[LINE_LENGTH][LINE_LENGTH];
+        numberSpots = new int[LINE_LENGTH][LINE_LENGTH];
         readFile(file);
     }
     public void readFile(String file) {
@@ -56,6 +65,12 @@ public class Day3 {
         }
     }
 
+    private void markAroundNumber(NumberNode nn) {
+        for (int x = nn.startX; x <= nn.endX; x++) {
+            numberSpots[x][nn.y] = nn.id;
+        }
+    }
+
     private NumberNode createNumNode(String line, int startX, int y) {
         StringBuilder numString = new StringBuilder();
         int x = startX;
@@ -71,7 +86,7 @@ public class Day3 {
     public void test() {
         String line = ".........398.............551.....................452..................712.996.................646.40...1.....875..958.553...................\n";
         readLine(line, 0);
-        for (NumberNode nn : numberNodes) {
+        for (NumberNode nn : numberNodes.values()) {
             System.out.println("number: " + nn.number);
             System.out.println("startX: " + nn.startX);
             System.out.println("endX: " + nn.endX);
@@ -88,13 +103,17 @@ public class Day3 {
         while (x < line.length()) {
             if (Character.isDigit(line.charAt(x))) {
                 NumberNode nn = createNumNode(line, x, lineNum);
-                numberNodes.add(nn);
+                // numberNodes.add(nn);
+                numberNodes.put(nn.id, nn);
+                markAroundNumber(nn);
                 x = nn.endX + 1;
             } else if (isSymbol(line.charAt(x))) {
+                if (line.charAt(x) == '*') {
+                    int[] coords = new int[]{x, lineNum};
+                    starCoords.add(coords);
+                }
                 markAroundSymbol(x, lineNum);
                 x++;
-//                int[] coords = new int[]{x, lineNum};
-//                symbolCoords.add(coords);
             } else {
                 x++;
             }
@@ -112,9 +131,45 @@ public class Day3 {
 
     public int returnSum() {
         int sum = 0;
-        for (NumberNode nn : numberNodes) {
+        for (NumberNode nn : numberNodes.values()) {
             if (validPartNumber(nn)) {
                 sum += nn.number;
+            }
+        }
+        return sum;
+    }
+
+    private int getNum(int nnID) {
+        return numberNodes.get(nnID).number;
+    }
+
+    private int getGearRatio(int[] coords) {
+        ArrayList<Integer> numberNodeIDs = new ArrayList<>();
+        int starX = coords[0];
+        int starY = coords[1];
+        for (int x = starX - 1; x <= starX + 1; x++) {
+            for (int y = starY - 1; y <= starY + 1; y++) {
+                int occupiedID = numberSpots[x][y];
+                if (occupiedID > 0 && !numberNodeIDs.contains(occupiedID)) {
+                    numberNodeIDs.add(occupiedID);
+                }
+                if (numberNodeIDs.size() > 2) { // too many, not a valid gear
+                    return -1;
+                }
+            }
+        }
+        if (numberNodeIDs.size() != 2) {
+            return -1; // if not a valid gear
+        }
+        return getNum(numberNodeIDs.get(0)) * getNum(numberNodeIDs.get(1));
+    }
+
+    public int returnGearSum() {
+        int sum = 0;
+        for (int[] coords : starCoords) {
+            int gearRatio = getGearRatio(coords);
+            if (gearRatio != -1) {
+                sum += gearRatio;
             }
         }
         return sum;

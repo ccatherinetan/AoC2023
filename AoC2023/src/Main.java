@@ -7,7 +7,7 @@ public class Main {
         String file = "src/data/day3part1.txt";
         Day3 d = new Day3(file);
 //        d.test();
-        System.out.println(d.returnSum());
+        System.out.println(d.returnGearSum());
         System.out.println("Hello world!");
     }
 
@@ -19,6 +19,12 @@ public class Main {
      System.out.println(d.returnPowerSum());
 
     DAY 3:
+     String file = "src/data/day3part1.txt";
+     Day3 d = new Day3(file);
+     System.out.println(d.returnSum());
+     System.out.println(d.returnGearSum());
+     System.out.println("Hello world!");
+
 
      */
 }
