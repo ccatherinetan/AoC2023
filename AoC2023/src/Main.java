@@ -4,7 +4,7 @@ public class Main {
         String file = "src/data/day5.txt";
         String test = "src/data/day5small.txt";
         // expected output: 35
-        Day5 d = new Day5(test);
+        Day5 d = new Day5(file);
         System.out.println(d.minLocationFromSeedRange());
         System.out.println("Hello world!");
     }
@@ -31,9 +31,11 @@ public class Main {
       Day4 d = new Day4(file);
       System.out.println(d.countTotalCards());
 
+<<<<<<< Updated upstream
     DAY 5:
       String file = "src/data/day5.txt";
       Day5 d = new Day5(file);
       System.out.println(d.minLocationFromSeedRange());
      */
+
 }
