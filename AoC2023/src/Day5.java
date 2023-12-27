@@ -93,11 +93,37 @@ public class Day5 {
         return location;
     }
 
-    public long returnMinLocation() {
+    public long minLocation() {
         long min = Long.MAX_VALUE;
         for (long seed : seeds) {
             min = Math.min(min, findLocationFromSeed(seed));
         }
+        return min;
+    }
+
+    /*
+    for (int i = 0; i < seeds.length; i = i + 2) {
+            long start = seeds[i];
+            long end = start + seeds[i + 1];
+            for (long seed = start; seed < end; seed++) {
+                min = Math.min(min, findLocationFromSeed(seed));
+            }
+        }
+     */
+
+    public long minLocationFromSeedRange() {
+        long min = Long.MAX_VALUE;
+        for (int i = 0; i < seeds.length; i = i + 2) {
+            long start = seeds[i];
+            long end = start + seeds[i + 1];
+            for (long seed = start; seed < end; seed++) {
+                min = Math.min(min, findLocationFromSeed(seed));
+            }
+        }
+//        for (int i = 0; i < seeds.length; i = i + 2) {
+//            long seed = seeds[i];
+//            min = Math.min(min, findLocationFromSeed(seed));
+//        }
         return min;
     }
 }
