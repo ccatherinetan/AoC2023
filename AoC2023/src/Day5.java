@@ -1,8 +1,6 @@
 import edu.princeton.cs.algs4.In;
 import java.util.*;
 
-import static net.sf.saxon.trans.DecimalSymbols.INFINITY;
-
 public class Day5 {
     // PriorityQueue<Integer> locations;
     long[] seeds;
@@ -72,6 +70,7 @@ public class Day5 {
                 }
             }
         }
+        System.out.println("Done reading file.");
     }
 
     private long[] stringToLongArray(String[] a) {
@@ -82,19 +81,24 @@ public class Day5 {
         return returnVal;
     }
 
-    private void addToMap(TreeMap<int[], Integer> map, int[] vals) {
-        int destStart = vals[0];
-        int sourceStart = vals[1];
-        int range = vals[2];
-        map.put(new int[]{sourceStart, range}, destStart);
-    }
+//    private void addToMap(TreeMap<int[], Integer> map, int[] vals) {
+//        int destStart = vals[0];
+//        int sourceStart = vals[1];
+//        int range = vals[2];
+//        map.put(new int[]{sourceStart, range}, destStart);
+//    }
+
+    /**
+    NEW IMPLEMENTATION OF FIND VAL FROM MAP
+     **/
+
 
     private boolean rangesOverlap(long start1, long end1, long start2, long end2) {
         return (start2 <= start1 && start1 <= end2) || (start2 <= end1 && end1 <= end2);
     }
 
     private Set<Long> possibleKeys(TreeMap<Long, long[]> map, long input, long inputRange) {
-        Long first = map.floorKey(input);
+        Long first = map.floorKey(input + 1);
         if (first == null) {
             first = map.firstKey();
         }
@@ -102,8 +106,13 @@ public class Day5 {
         if (last == null) {
             last = map.lastKey();
         }
-        Set<Long> returnVal = map.subMap(first, last).keySet();
-        return returnVal;
+        // if there's only 1 possible key
+        if (first == last) {
+            HashSet<Long> returnVal = new HashSet<>();
+            returnVal.add(first);
+            return returnVal;
+        }
+        return map.subMap(first, last).keySet();
     }
 
     private long[] findNextVal(TreeMap<Long, long[]> map, long[] inputAndRange) {
@@ -139,7 +148,7 @@ public class Day5 {
     }
 
     public long returnMinLocation() {
-        long min = INFINITY;
+        long min = Long.MAX_VALUE;
         for (long seed : seeds) {
             min = Math.min(min, findLocationFromSeed(seed));
         }

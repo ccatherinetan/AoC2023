@@ -2,7 +2,9 @@
 public class Main {
     public static void main(String[] args) {
         String file = "src/data/day5.txt";
-        Day5 d = new Day5(file);
+        String test = "src/data/day5small.txt";
+        // expected output: 35
+        Day5 d = new Day5(test);
         System.out.println(d.returnMinLocation());
         System.out.println("Hello world!");
     }
