@@ -32,10 +32,10 @@ public class Day6 {
             String[] data = line.split("[ ]+");
             if (i == 0) {
                 oneTime = combineInto1Num(data);
-                // times = stringToIntArray(data);
+                times = stringToIntArray(data);
             } else {
                 oneDist = combineInto1Num(data);
-                // distances = stringToIntArray(data);
+                distances = stringToIntArray(data);
             }
         }
         // h = # ms, held down
@@ -49,9 +49,6 @@ public class Day6 {
         // x = (-b +/- √(b^2 - 4ac)) / 2a
         long radicand = b * b - 4 * a * c;
         double term = Math.sqrt(radicand);
-//        int lower = (int) Math.ceil((-b - term) / (2 * a));
-//        int upper = (int) Math.floor(-b + term) / (2 * a);
-        // return new int[]{lower, upper};
         double lower = (-b - term) / (2 * a);
         double upper = (-b + term) / (2 * a);;
         return new long[]{nextLong(lower, true), nextLong(upper, false)};
@@ -81,14 +78,10 @@ public class Day6 {
     }
 
     public long finalProduct() {
-        int prod = 1;
+        long prod = 1;
         for (int i = 0; i < times.length; i++) {
             long[] sols = solveQuadraticEquation(1, -times[i], distances[i]);
             prod *= numSolutions(sols);
-//            System.out.println("Time: " + times[i]);
-//            System.out.println("Best Distance: " + distances[i]);
-//            System.out.println(sols[0] + " " + sols[1]);
-//            System.out.println(numSolutions(sols));
         }
         return prod;
     }
