@@ -3,7 +3,7 @@ public class Main {
     public static void main(String[] args) {
         String file = "src/data/day8.txt";
         String test = "src/data/day8test.txt";
-        Day8 d = new Day8(test);
+        Day8 d = new Day8(file);
         System.out.println(d.numSteps());
         System.out.println("Hello world!");
     }

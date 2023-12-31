@@ -7,21 +7,21 @@ public class Day8 {
     HashMap<String, Node> nodes;
     private class Node {
         String node;
-        Node left;
-        Node right;
-
-        public Node(String n, Node l, Node r) {
+        String left;
+        String right;
+        // static HashMap<String, Node> nodes;
+        public Node(String n, String l, String r) {
             node = n;
             left = l;
             right = r;
-            nodes.put(node, this);
+            // nodes.put(node, this);
         }
 
         public Node nextNode(char direction) {
             if (direction == 'L') {
-                return left;
+                return nodes.get(left);
             } else if (direction == 'R') {
-                return right;
+                return nodes.get(right);
             }
             return null;
         }
@@ -43,16 +43,17 @@ public class Day8 {
             if (line != "") {
                 String[] split = line.split("[ ]+=[ ]+");
                 String name = split[0];
-                Node curr = findNode(name);
 
                 String[] lr = split[1].split(",[ ]+");
                 String lName = lr[0].substring(1);
                 String rName = lr[1].substring(0, lr[1].length() - 1);
-                Node left = findNode(lName);
-                Node right = findNode(rName);
 
-                curr.left = left;
-                curr.right = right;
+                Node curr = new Node(name, lName, rName);
+                nodes.put(name, curr);
+//                Node left = findNode(lName);
+//                Node right = findNode(rName);
+//                curr.left = left;
+//                curr.right = right;
             }
         }
     }
