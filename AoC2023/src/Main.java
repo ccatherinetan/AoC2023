@@ -1,10 +1,9 @@
 
 public class Main {
     public static void main(String[] args) {
-        String file = "src/data/day6.txt";
-        Day6 d = new Day6(file);
-        System.out.println(d.finalProduct());
-        System.out.println(d.finalProduct2());
+        String file = "src/data/day7.txt";
+        Day7 d = new Day7(file);
+        System.out.println(d.totalWinnings());
         System.out.println("Hello world!");
     }
 
