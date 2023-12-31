@@ -4,7 +4,8 @@ public class Main {
         String file = "src/data/day8.txt";
         String test = "src/data/day8test.txt";
         Day8 d = new Day8(file);
-        System.out.println(d.numSteps());
+        // d.test();
+        System.out.println(d.ghostSteps());
         System.out.println("Hello world!");
     }
 
