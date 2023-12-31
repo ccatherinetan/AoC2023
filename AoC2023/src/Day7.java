@@ -1,16 +1,14 @@
 import edu.princeton.cs.algs4.In;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
 public class Day7 {
     PriorityQueue<Hand> rankedHands;
-//    Hand[] hands;
-//    int[] bids;
+
     public Day7(String file) {
-//        hands = new Hand[1000];
-//        bids = new int[1000];
         rankedHands = new PriorityQueue<>();
         readFile(file);
     }
@@ -47,6 +45,35 @@ public class Day7 {
                     freq.put(c, 1);
                 }
             }
+
+            int numJ = freq.getOrDefault('J', 0);
+            freq.remove('J');
+            if (numJ == 5) { // all J's
+                return 7;
+            }
+
+            PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+            maxHeap.addAll(freq.values());
+
+            int max = maxHeap.remove() + numJ;
+            if (max == 5) {
+                return 7;
+            } else if (max == 4) {
+                return 6;
+            } else if (max == 3) {
+                if (maxHeap.remove() == 2) {
+                    return 5;
+                }
+                return 4;
+            } else if (max == 2) {
+                if (maxHeap.remove() == 2) {
+                    return 3;
+                }
+                return 2;
+            }
+            return 1;
+
+            /*
             ArrayList<Integer> vals = new ArrayList(freq.values());
             if (vals.contains(5)) {
                 return 7;
@@ -65,6 +92,7 @@ public class Day7 {
                 return 2; // 1 pair
             }
             return 1; // high card
+             */
         }
 
         int intVal(char c) {
@@ -73,7 +101,7 @@ public class Day7 {
             } else if (c == 'T') {
                 return 10;
             } else if (c == 'J') {
-                return 11;
+                return 1; // lower than 2
             } else if (c == 'Q') {
                 return 12;
             } else if (c == 'K') {
