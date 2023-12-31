@@ -2,9 +2,7 @@
 public class Main {
     public static void main(String[] args) {
         String file = "src/data/day8.txt";
-        String test = "src/data/day8test.txt";
         Day8 d = new Day8(file);
-        // d.test();
         System.out.println(d.ghostSteps());
         System.out.println("Hello world!");
     }
@@ -41,5 +39,10 @@ public class Main {
        String file = "src/data/day7.txt";
        Day7 d = new Day7(file);
        System.out.println(d.totalWinnings());
+
+    DAY 8:
+       String file = "src/data/day8.txt";
+       Day8 d = new Day8(file);
+       System.out.println(d.ghostSteps());
      */
 }

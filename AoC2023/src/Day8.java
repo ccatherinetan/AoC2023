@@ -13,7 +13,6 @@ public class Day8 {
         String node;
         String left;
         String right;
-        // static HashMap<String, Node> nodes;
         public Node(String n, String l, String r) {
             node = n;
             left = l;
@@ -23,7 +22,6 @@ public class Day8 {
             } else if (n.charAt(2) == 'Z') {
                 endNodes.add(n);
             }
-            // nodes.put(node, this);
         }
 
         public Node nextNode(char direction) {
@@ -42,10 +40,6 @@ public class Day8 {
         readFile(file);
     }
 
-    private Node findNode(String node) {
-        return nodes.getOrDefault(node, new Node(node, null, null));
-    }
-
     public void readFile(String file) {
         In in = new In(file);
         sequence = in.readLine();
@@ -61,10 +55,6 @@ public class Day8 {
 
                 Node curr = new Node(name, lName, rName);
                 nodes.put(name, curr);
-//                Node left = findNode(lName);
-//                Node right = findNode(rName);
-//                curr.left = left;
-//                curr.right = right;
             }
         }
     }
@@ -99,11 +89,6 @@ public class Day8 {
             steps++;
         }
         return steps;
-    }
-
-    public void test() {
-        long lcm = findLCM(55297709, 12083);
-        System.out.println(lcm);
     }
 
     private long findLCM(long a, long b) {
