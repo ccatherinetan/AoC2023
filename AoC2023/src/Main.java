@@ -5,7 +5,7 @@ public class Main {
         String test = "src/data/day6test.txt";
         Day6 d = new Day6(file);
         // d.test();
-        System.out.println(d.finalProduct());
+        System.out.println(d.finalProduct2());
         System.out.println("Hello world!");
     }
 
@@ -31,5 +31,9 @@ public class Main {
       Day4 d = new Day4(file);
       System.out.println(d.countTotalCards());
 
+    DAY 6:
+       String file = "src/data/day6.txt";
+       Day6 d = new Day6(file);
+       System.out.println(d.finalProduct());
      */
 }
