@@ -1,6 +1,5 @@
 import edu.princeton.cs.algs4.In;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -47,10 +46,10 @@ public class Day7 {
             }
 
             int numJ = freq.getOrDefault('J', 0);
-            freq.remove('J');
             if (numJ == 5) { // all J's
                 return 7;
             }
+            freq.remove('J');
 
             PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
             maxHeap.addAll(freq.values());
@@ -72,27 +71,6 @@ public class Day7 {
                 return 2;
             }
             return 1;
-
-            /*
-            ArrayList<Integer> vals = new ArrayList(freq.values());
-            if (vals.contains(5)) {
-                return 7;
-            } else if (vals.contains(4)) {
-                return 6;
-            } else if (vals.contains(3)) {
-                if (vals.contains(2)) {
-                    return 5; //full house
-                }
-                return 4;
-            } else if (vals.contains(2)) {
-                vals.remove(Integer.valueOf(2));
-                if (vals.contains(2)) {
-                    return 3; // 2 pairs
-                }
-                return 2; // 1 pair
-            }
-            return 1; // high card
-             */
         }
 
         int intVal(char c) {
@@ -126,6 +104,7 @@ public class Day7 {
             }
             return 0;
         }
+
     }
 
     public void readFile(String file) {
@@ -148,4 +127,5 @@ public class Day7 {
         }
         return result;
     }
+
 }

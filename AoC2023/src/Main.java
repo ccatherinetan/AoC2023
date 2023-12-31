@@ -34,5 +34,10 @@ public class Main {
        Day6 d = new Day6(file);
        System.out.println(d.finalProduct());
        System.out.println(d.finalProduct2());
+
+    DAY 7:
+       String file = "src/data/day7.txt";
+       Day7 d = new Day7(file);
+       System.out.println(d.totalWinnings());
      */
 }
