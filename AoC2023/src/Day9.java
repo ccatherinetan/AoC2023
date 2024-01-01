@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class Day9 {
     private class Report {
         int[] values;
-        // int currDepth;
-        // int maxDepth;
         ArrayList<int[]> nextLevels = new ArrayList<>();
         public Report(int[] v) {
             values = v;
@@ -53,6 +51,7 @@ public class Day9 {
             }
             return values[0] - saved;
         }
+
     }
 
     public Day9(String file) {
@@ -78,4 +77,5 @@ public class Day9 {
         }
         return returnVal;
     }
+
 }
