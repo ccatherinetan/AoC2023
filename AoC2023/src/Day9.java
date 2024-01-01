@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class Day9 {
     private class Report {
         int[] values;
-        // int currDepth;
-        // int maxDepth;
         ArrayList<int[]> nextLevels = new ArrayList<>();
         public Report(int[] v) {
             values = v;
@@ -43,6 +41,17 @@ public class Day9 {
              }
             return prevVal + values[values.length - 1];
         }
+
+        public int predictPrevVal() {
+            int saved = 0;
+            for (int i = nextLevels.size() - 2; i >= 0; i--) {
+                int[] level = nextLevels.get(i);
+                int first = level[0];
+                saved = first - saved;
+            }
+            return values[0] - saved;
+        }
+
     }
 
     public Day9(String file) {
@@ -56,7 +65,7 @@ public class Day9 {
             String line = in.readLine();
             int[] vals = stringToIntArray(line.split("[ ]+"));
             Report r = new Report(vals);
-            sum += r.predictNextVal();
+            sum += r.predictPrevVal();
         }
         System.out.println(sum);
     }
@@ -68,4 +77,5 @@ public class Day9 {
         }
         return returnVal;
     }
+
 }
