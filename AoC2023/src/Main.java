@@ -1,9 +1,10 @@
 
 public class Main {
     public static void main(String[] args) {
-        String file = "src/data/day8.txt";
-        Day8 d = new Day8(file);
-        System.out.println(d.ghostSteps());
+        String file = "src/data/day9.txt";
+        String test = "src/testData/day9test.txt";
+        Day9 d = new Day9(file);
+        // System.out.println(d.ghostSteps());
         System.out.println("Hello world!");
     }
 
