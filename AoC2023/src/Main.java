@@ -1,9 +1,9 @@
 
 public class Main {
     public static void main(String[] args) {
-        String file = "src/data/day9.txt";
-        Day9 d = new Day9(file);
-        // System.out.println(d.ghostSteps());
+        String file = "src/data/day11.txt";
+        String test = "src/testData/day11test.txt";
+        Day11 d = new Day11(file, 140);
         System.out.println("Hello world!");
     }
 
@@ -48,5 +48,10 @@ public class Main {
     DAY 9:
        String file = "src/data/day9.txt";
        Day9 d = new Day9(file);
+
+    DAY 11:
+       String file = "src/data/day11.txt";
+       String test = "src/testData/day11test.txt";
+       Day11 d = new Day11(file, 140);
      */
 }
