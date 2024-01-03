@@ -1,4 +1,3 @@
-// import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -6,13 +5,6 @@ public class Main {
         String test = "src/testData/day11test.txt";
         Day11 d = new Day11(file, 140);
         System.out.println("Hello world!");
-
-//        String testExpanded = "src/testData/day11expanded.txt";
-//        Day11 expandedD = new Day11(testExpanded, 10);
-
-//        ArrayList<int[]> originalCoords = d.galaxyCoords;
-//        ArrayList<int[]> checkExpansion = d.expandCoords();
-//        ArrayList<int[]> actualExpanded = expandedD.galaxyCoords;
     }
 
     /*
@@ -56,5 +48,10 @@ public class Main {
     DAY 9:
        String file = "src/data/day9.txt";
        Day9 d = new Day9(file);
+
+    DAY 11:
+       String file = "src/data/day11.txt";
+       String test = "src/testData/day11test.txt";
+       Day11 d = new Day11(file, 140);
      */
 }

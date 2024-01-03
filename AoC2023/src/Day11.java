@@ -1,13 +1,9 @@
 import edu.princeton.cs.algs4.In;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.TreeSet;
 
 public class Day11 {
-    // char[][] board;
-    ArrayList<String> boardStr;
     TreeSet<Integer> expandingX;
     TreeSet<Integer> expandingY;
     ArrayList<int[]> galaxyCoords;
@@ -16,7 +12,7 @@ public class Day11 {
 
     /**
      * Find sum of the distances between galaxies
-     * @param file
+     * @param file input universe
      *
      * LOGIC:
      * 1. READ FILE
@@ -33,15 +29,13 @@ public class Day11 {
         UNIVERSE_SIZE = uSize;
         expandingX = createInitialSet();
         expandingY = createInitialSet();
-        boardStr = new ArrayList<>();
         galaxyCoords = new ArrayList<>();
-        // board = new char[UNIVERSE_SIZE * 2][UNIVERSE_SIZE * 2]; // to allow in-place modification
 
         // 1. READ FILE
         readFile(file);
 
         // 2. EXPAND THE UNIVERSE
-        ArrayList<int[]> newCoords = expandCoords();
+        ArrayList<int[]> newCoords = expandUniverse();
 
         // 3. CALCULATE DISTANCES
         long sum = sumDist(newCoords);
@@ -55,11 +49,18 @@ public class Day11 {
         }
         return hs;
     }
-    public void readFile(String file) { // find expanding rows / columns
+
+    /**
+     * Creates/Updates a list of cols (expandingX) and rows (expandingY) that will expand
+     * based on pre-expansion galaxy locations, read from FILE
+     * @param file input universe
+     */
+    public void readFile(String file) {
         In in = new In(file);
         int y = 0;
         while (in.hasNextLine()) {
             String line = in.readLine();
+            // remove rows/cols that contain # from list of expanding rows/cols
             if (line.contains("#")) {
                 expandingY.remove(y);
                 int x = line.indexOf('#');
@@ -69,7 +70,6 @@ public class Day11 {
                     x = line.indexOf('#', x + 1);
                 }
             }
-            boardStr.add(line);
             y++;
         }
     }
@@ -79,7 +79,7 @@ public class Day11 {
      * Assumes that SEARCH does not contain VALUE
      * @param value the target value
      * @param search the list in which we're searching
-     * @return
+     * @return number of items in SEARCH that VALUE is larger than
      */
     private int findPlace(int value, TreeSet<Integer> search) {
         int i = 0;
@@ -91,8 +91,13 @@ public class Day11 {
         }
         return search.size();
     }
+
+    /**
+     * Return post-expansion of 1 galaxy, based on EXPANSION_FACTOR
+     * @param former pre-expansion coordinates (of 1 galaxy)
+     * @return post-expansion coordindates, 2-valued int array
+     */
     private int[] postExpansionCoords(int[] former) {
-        // int[] result = new int[2];
         int formerX = former[0];
         int formerY = former[1];
         int newX = formerX + findPlace(formerX, expandingX) * (EXPANSION_FACTOR - 1);
@@ -101,19 +106,20 @@ public class Day11 {
         return new int[]{newX, newY};
     }
 
-    private int distBetween(int[] c1, int[] c2) {
-        int xDiff = Math.abs(c1[0] - c2[0]);
-        int yDiff = Math.abs(c1[1] - c2[1]);
-        return xDiff + yDiff;
-    }
-
-    ArrayList<int[]> expandCoords() {
+    ArrayList<int[]> expandUniverse() {
         ArrayList<int[]> newCoords = new ArrayList<>();
         for (int[] coords : galaxyCoords) {
             newCoords.add(postExpansionCoords(coords));
         }
         return newCoords;
     }
+
+    private int distBetween(int[] c1, int[] c2) {
+        int xDiff = Math.abs(c1[0] - c2[0]);
+        int yDiff = Math.abs(c1[1] - c2[1]);
+        return xDiff + yDiff;
+    }
+
     public long sumDist(ArrayList<int[]> allCoords) {
         long sum = 0;
         for (int i = 0; i < allCoords.size(); i++) {
@@ -126,12 +132,4 @@ public class Day11 {
         return sum;
     }
 
-//    private void createBoard() {
-//        for (int y = 0; y < boardStr.size(); y++) {
-//            String line = boardStr.get(y);
-//            for (int x = 0; x < line.length(); x++) {
-//
-//            }
-//        }
-//    }
 }
