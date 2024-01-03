@@ -12,6 +12,7 @@ public class Day11 {
     TreeSet<Integer> expandingY;
     ArrayList<int[]> galaxyCoords;
     final int UNIVERSE_SIZE;
+    final int EXPANSION_FACTOR = 1000000;
 
     /**
      * Find sum of the distances between galaxies
@@ -43,7 +44,7 @@ public class Day11 {
         ArrayList<int[]> newCoords = expandCoords();
 
         // 3. CALCULATE DISTANCES
-        int sum = sumDist(newCoords);
+        long sum = sumDist(newCoords);
         System.out.println(sum);
     }
 
@@ -94,8 +95,8 @@ public class Day11 {
         // int[] result = new int[2];
         int formerX = former[0];
         int formerY = former[1];
-        int newX = formerX + findPlace(formerX, expandingX);
-        int newY = formerY + findPlace(formerY, expandingY);
+        int newX = formerX + findPlace(formerX, expandingX) * (EXPANSION_FACTOR - 1);
+        int newY = formerY + findPlace(formerY, expandingY) * (EXPANSION_FACTOR - 1);
 
         return new int[]{newX, newY};
     }
@@ -113,8 +114,8 @@ public class Day11 {
         }
         return newCoords;
     }
-    public int sumDist(ArrayList<int[]> allCoords) {
-        int sum = 0;
+    public long sumDist(ArrayList<int[]> allCoords) {
+        long sum = 0;
         for (int i = 0; i < allCoords.size(); i++) {
             for (int j = i + 1; j < allCoords.size(); j++) {
                 int[] c1 = allCoords.get(i);

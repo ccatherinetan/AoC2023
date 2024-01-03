@@ -7,8 +7,8 @@ public class Main {
         Day11 d = new Day11(file, 140);
         System.out.println("Hello world!");
 
-        String testExpanded = "src/testData/day11expanded.txt";
-        Day11 expandedD = new Day11(testExpanded, 10);
+//        String testExpanded = "src/testData/day11expanded.txt";
+//        Day11 expandedD = new Day11(testExpanded, 10);
 
 //        ArrayList<int[]> originalCoords = d.galaxyCoords;
 //        ArrayList<int[]> checkExpansion = d.expandCoords();
